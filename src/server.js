@@ -1,18 +1,12 @@
 import express from "express";
+import morgan from "morgan";
 
 const PORT = 4000;
 const app = express();
 
-const pathLogger = (req, res, next) => {
-	console.log("PATH", req.path);
-	next();
-};
-const methodLogger = (req, res, next) => {
-	console.log("METHOD", req.method);
-	next();
-};
+const logger = morgan("dev");
 
-app.use(methodLogger, pathLogger);
+app.use(logger);
 app.get("/", (req, res) => res.send("I love middlewares"));
 
 const handleListening = () => {
