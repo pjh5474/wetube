@@ -1,35 +1,37 @@
 {
-  "name": "wetube",
-  "version": "1.0.0",
-  "description": "Wetube Clone using NodeJS, Express, Mongo and ES6♡",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pjh5474/wetube.git"
-  },
-  "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js"
-  },
-  "keywords": [
-    "wetube",
-    "NodeJS",
-    "Express",
-    "Mongo",
-    "ES6"
-  ],
-  "author": "jhpark",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pjh5474/wetube/issues"
-  },
-  "homepage": "https://github.com/pjh5474/wetube#readme",
-  "dependencies": {
-    "express": "^4.18.2",
-    "morgan": "^1.10.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.20.12",
-    "@babel/node": "^7.20.7",
-    "@babel/preset-env": "^7.20.2",
-    "nodemon": "^2.0.20"
-  }
+	"name": "wetube",
+	"version": "1.0.0",
+	"description": "Wetube Clone using NodeJS, Express, Mongo and ES6♡",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/pjh5474/wetube.git"
+	},
+	"scripts": {
+		"dev": "nodemon --exec babel-node src/server.js"
+	},
+	"keywords": [
+		"wetube",
+		"NodeJS",
+		"Express",
+		"Mongo",
+		"ES6"
+	],
+	"author": "jhpark",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/pjh5474/wetube/issues"
+	},
+	"homepage": "https://github.com/pjh5474/wetube#readme",
+	"dependencies": {
+		"express": "^4.18.2",
+		"mongoose": "^7.0.4",
+		"morgan": "^1.10.0",
+		"pug": "^3.0.2"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.20.12",
+		"@babel/node": "^7.20.7",
+		"@babel/preset-env": "^7.20.2",
+		"nodemon": "^2.0.20"
+	}
 }
