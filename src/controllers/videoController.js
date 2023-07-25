@@ -8,6 +8,7 @@ export const home = async (req, res) => {
 			.populate("owner");
 		return res.render("home", { pageTitle: "Home", videos });
 	} catch (error) {
+		req.flash("error", "Server error.");
 		return res.render("server-error");
 	}
 };
@@ -15,6 +16,7 @@ export const watch = async (req, res) => {
 	const { id } = req.params;
 	const video = await Video.findById(id).populate("owner");
 	if (!video) {
+		req.flash("error", "Video not found.");
 		return res.status(404).render("404", { pageTitle: "Video not found." });
 	}
 	return res.render("videos/watch", { pageTitle: video.title, video });
@@ -26,9 +28,11 @@ export const getEdit = async (req, res) => {
 	} = req.session;
 	const video = await Video.findById(id);
 	if (!video) {
+		req.flash("error", "Video not found.");
 		return res.status(404).render("404", { pageTitle: "Video not found." });
 	}
 	if (String(video.owner) !== String(_id)) {
+		req.flash("error", "You are not the owner of the video.");
 		return res.status(403).redirect("/");
 	}
 	return res.render("videos/edit", { pageTitle: `Edit ${video.title}`, video });
@@ -45,6 +49,7 @@ export const postEdit = async (req, res) => {
 		return res.status(404).render("404", { pageTitle: "Video not found." });
 	}
 	if (String(video.owner) !== String(_id)) {
+		req.flash("error", "You are not the owner of the video.");
 		return res.status(403).redirect("/");
 	}
 	await Video.findByIdAndUpdate(id, {
@@ -52,6 +57,7 @@ export const postEdit = async (req, res) => {
 		description,
 		hashtags: Video.formatHashtags(hashtags),
 	});
+	req.flash("success", "Changes saved");
 	return res.redirect(`/videos/${id}`);
 };
 
@@ -67,7 +73,6 @@ export const postUpload = async (req, res) => {
 		files: { video, thumb },
 		body: { title, description, hashtags },
 	} = req;
-	console.log(req.files);
 	try {
 		const newVideo = await Video.create({
 			title,
@@ -80,9 +85,10 @@ export const postUpload = async (req, res) => {
 		const user = await User.findById(_id);
 		user.videos.push(newVideo._id);
 		user.save();
+		req.flash("success", "Uploaded successfully");
 		return res.redirect("/");
 	} catch (error) {
-		console.log(error);
+		req.flash("error", error._message);
 		return res.status(400).render("videos/upload", {
 			pageTitle: "Upload Video",
 			errorMessage: error._message,
@@ -100,6 +106,7 @@ export const deleteVideo = async (req, res) => {
 		return res.status(403).redirect("/");
 	}
 	await Video.findByIdAndDelete(id);
+	req.flash("info", "Deleted successfully");
 	return res.redirect("/");
 };
 
@@ -120,6 +127,7 @@ export const registerView = async (req, res) => {
 	const { id } = req.params;
 	const video = await Video.findById(id);
 	if (!video) {
+		req.flash("error", "Video not found");
 		return res.sendStatus(404);
 	}
 	video.meta.views = video.meta.views + 1;
