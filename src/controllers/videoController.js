@@ -176,8 +176,6 @@ export const deleteComment = async (req, res) => {
 		return res.sendStatus(404);
 	}
 
-	console.log(comment.owner, userId);
-
 	if (String(comment.owner) !== String(userId)) {
 		req.flash("error", "Not authorized");
 		return res.sendStatus(403);

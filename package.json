@@ -7,8 +7,12 @@
 		"url": "git+https://github.com/pjh5474/wetube.git"
 	},
 	"scripts": {
+		"start": "node build/init.js",
+		"build": "npm run build:server && npm run build:assets",
+		"build:server": "babel src -d build",
+		"build:assets": "webpack --mode=production",
 		"dev:server": "nodemon",
-		"dev:assets": "webpack"
+		"dev:assets": "webpack --mode=development -w"
 	},
 	"keywords": [
 		"wetube",
@@ -39,7 +43,8 @@
 		"pug": "^3.0.2"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.20.12",
+		"@babel/cli": "^7.22.9",
+		"@babel/core": "^7.22.9",
 		"@babel/node": "^7.20.7",
 		"@babel/preset-env": "^7.20.2",
 		"babel-loader": "^9.1.3",
