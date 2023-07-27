@@ -126,13 +126,13 @@ videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
 
 document.addEventListener("keyup", (event) => {
-	if (event.code === "Space") {
+	if (event.target === document.body && event.code === "Space") {
 		handlePlayClick();
 	}
-	if (event.key === "m") {
+	if (event.target === document.body && event.key === "m") {
 		handleMute();
 	}
-	if (event.key === "F10") {
+	if (event.target === document.body && event.key === "F10") {
 		handleFullScreen();
 	}
 });
