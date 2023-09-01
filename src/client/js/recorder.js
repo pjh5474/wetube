@@ -86,7 +86,7 @@ const handleStart = () => {
 	};
 	recorder.start();
 	setTimeout(() => {
-		handleStop();
+		recorder.stop();
 	}, 5000);
 };
 
