@@ -186,11 +186,12 @@ export const postEdit = async (req, res) => {
 			errorMessage: "This email is already taken.",
 		});
 	}
+	const isFly = process.env.NODE_ENV === "production";
 
 	const updatedUser = await User.findByIdAndUpdate(
 		_id,
 		{
-			avatarUrl: file ? "..\\" + file.path : avatarUrl,
+			avatarUrl: file ? (isFly ? file.location : file.path) : avatarUrl,
 			name,
 			email,
 			username,
